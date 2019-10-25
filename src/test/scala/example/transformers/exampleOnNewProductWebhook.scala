@@ -7,12 +7,13 @@
 package example.transformers
 
 import com.competitionlabs.transformers.domain.WebhookSettings
-import com.competitionlabs.transformers.{CLWebhookTransformer, CompetitionLabsApiExt}
+import com.competitionlabs.transformers.{CLWebhookTransformer, CompetitionLabsApi}
 import org.joda.time.DateTime
+import utils.CompetitionLabsApiTest
 
 class exampleOnNewProductWebhook extends CLWebhookTransformer {
 
-	override def onNewProduct(settings: WebhookSettings, productId: String, competitionLabsApi: CompetitionLabsApiExt) = {
+	override def onNewProduct(settings: WebhookSettings, productId: String, competitionLabsApi: CompetitionLabsApi) = {
 		val body = Map[String, Any](
 			"accountId" -> competitionLabsApi.accountId,
 			"productId" -> productId,

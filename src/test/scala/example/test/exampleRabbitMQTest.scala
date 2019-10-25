@@ -25,8 +25,10 @@ class exampleRabbitMQTest extends FunSpec with Matchers with GivenWhenThen with 
 			api.createEventAction("bet")
 			api.createProduct("490", "My Reels", Seq("Acme co."), "slot", 1)
 
+			val args: Map[String, Any] = Map("routingKey" -> exampleRabbitMQTest.routingKey)
+
 			When("the message is forwarded")
-			transformer.apply(json, api)
+			transformer.apply(json, api, args)
 
 			Then("the event should be received")
 			assert(api.eventsReceivedForTest.keySet.contains("490"))
@@ -35,6 +37,8 @@ class exampleRabbitMQTest extends FunSpec with Matchers with GivenWhenThen with 
 }
 
 object exampleRabbitMQTest {
+	val routingKey: String = "testGame"
+
 	val jsonStringFromMq: String =
 		"""{
 		  	"transaction": {
